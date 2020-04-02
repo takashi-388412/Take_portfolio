@@ -1,27 +1,431 @@
-/* -------------------------------------------
-// base
-// -------------------------------------------*/
+@charset "UTF-8";
+// ==================================
+// config(初期設定や変数)
+// ==================================
+//560px ~ 960pxまで
+@mixin tb($breakpoint: md) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+//0 ~ 560pxまで
+  @mixin mq($breakpoint: sm) {
+    @media #{map-get($breakpoints, $breakpoint)} {
+      @content;
+  }
+}
 
-/* -------------------------------------------
-// base
-// -------------------------------------------*/
+// マップ型変数
+$breakpoints: (
+  'sm': 'screen and (max-width: 560px)',
+  'md': 'screen and (max-width: 960px)',
+) !default;
 
-/* -------------------------------------------
-// base
-// -------------------------------------------*/
+//メディアクエリーの読み込み方法
+// 0 ~ 960pxのスタイル
+// @include tb() {
+//   display: block;
+// }
+/* --------------------------------
+ * base
+ * -------------------------------- */
+html {
+  font-size: 62.5%;
+}
+body {
+  background: #151515 url('../../src/img/2020.jpg') no-repeat fixed left bottom;
+  // background: #151515 url('../../src/img/star2.jpg') no-repeat fixed left bottom;
+  background-size: cover;
+  color: #fff;
+  text-align: center;
+  font-size: 1.4rem;
+  // font-family: Raleway, "Hiragino Kaku Gothic ProN",  Meiryo,  sans-serif;
+  font-family: 'Gotu',Meiryo, sans-serif;
+}
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+/* --------------------------------
+ * parts
+ * -------------------------------- */
+.heading {
+  position: relative;
+  display: inline-block;
+  margin: 30px 0 15px;
+  padding-bottom: 15px;
+  letter-spacing: 2px;
+  font-size: 4rem;
+}
+.heading::before,
+.heading::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-bottom: 1px solid #999;
+}
+.heading::before {
+  bottom: 5px;
+}
+.button {
+  display: inline-block;
+  width: 200px;
+  padding: 20px;
+  border-radius: 4px;
+  background-color:  #ffdab9;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: 1px;
+  font-size: 1.6rem;
+  &-showy {
+    background-color: #4682b4;
+  }
+  &-ghost {
+    border: 1px solid #fff;
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+  &:hover {
+    opacity: 0.8;
+  }
+}
+/* --------------------------------
+ * header
+ * -------------------------------- */
+.header {
+  padding: 120px 30px 80px;
+}
+.site {
+  &-title {
+    margin: 50px 0 40px;
+    font-size: 7.6rem;
+    &-sub {
+      margin: 0 0 30px;
+      letter-spacing: 1px;
+      font-size: 2.2rem;
+    }
+  }
+}
+.site-title-sub::before,
+.site-title-sub::after {
+  content: '';
+  display: inline-block;
+  width: 140px;
+  height: 2px;
+  margin: 0 30px;
+  background-color: #fff;
+  vertical-align: middle;
+}
+.buttons .button {
+  margin: 10px;
+}
+/* --------------------------------
+ * about
+ * -------------------------------- */
+.about {
+  padding: 80px 30px;
+  background-color: #fff;
+  color: #333;
+  &-text {
+    margin: 30px 0;
+    line-height: 2.5;
+  }
+}
+/* --------------------------------
+ * works
+ * -------------------------------- */
+.work {
+  padding: 80px 30px;
+  background-color: #383634;
+  &-wrapper {
+    display: table;
+    width: 100%;
+    margin-top: 60px;
+    // table-layout: fixed;
+    @include mq() {
+      margin-top: 20px;
+    }
+  }
+  &-box {
+    // position: relative;
+    display: table-cell;
+    border: 1px solid #fff;
+    @include mq () {
+      display: block;
+      margin-bottom: 15px;
+    }
+    a {
+      display: block;
+      padding: 20px;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+  &-image {
+    &1 {
+    height: 30em;
+    width: 350px;
+      @include mq () {
+        width: 70%;
+        height: 20em;
+      }
+    }
+    &2 {
+    height: 30em;
+    width: 350px;
+      @include mq () {
+        width: 70%;
+        height: 20em;
+      }
+    }
+    // margin: 0 0 60%;/*下に60%の空白を作成*/
+  }
+  // &-description {
+  //   position: absolute;
+  //   top: 50%;
+  //   left: 0;
+  //   z-index: 1;
+  //   width: 100%;
+  //   height: 50%;
+  //   overflow-y: auto;
+  //   &-inner {
+  //     display: table;
+  //     width: 100%;
+  //     height: 100%;
+  //     padding: 20px;
+  //   }
+  // }
+  // &-text {
+  //   display: table-cell;
+  //   vertical-align: middle;
+  //   font-size: 1.2rem;
+  //   line-height: 2;
+  //   & .button {
+  //     width: 60%;
+  //     margin-top: 20px;
+  //     padding: 3px;
+  //   }
+  // }
+}
+// /*workの画像*/
+// .work-box::after {
+//   content: '';
+//   position: absolute;
+//   top: 50%;
+//   left: 0;
+//   width: 100%;
+//   height: 50%;
+//   background: no-repeat;
+//   background-size: 100% 100%;
+//   opacity: 0.2;
+//   transform: scaleY(-1);
+// }
+// .work-box.tree::after {
+//   background-image: url('../../src/img/Takenn.png');
+// }
+// .work-box.building::after {
+//   background-image: url('../../src/img/Travel_Diary.png');
+// }
+// .work-box.lake::after {
+//   background-image: url('../../src/img/Takenn.png');
+// }
+// // .work-box.sky::after {
+// //   background-image: url('../images/sky.jpg');
+// // }
+// .work-box:nth-child(odd) .work-image {
+//   margin: 60% 0 0; /*上に60%の空白を作成(奇数番目)*/
+// }
+// .work-box:nth-child(odd) .work-description,
+// .work-box:nth-child(odd)::after {
+//   top: 0; /*2段目の重なっている2つの要素を両方共に、1番上へと寄せる(奇数番目)*/
+// }
+/* --------------------------------
+ * skills
+ * -------------------------------- */
+.skill {
+  padding: 80px 0;
+  background-color: #fff;
+  color: #333;
+  &-wrapper {
+    display: table;
+    width: 80%;
+    margin: 50px auto 0;
+    table-layout: fixed;
+  }
+  &-box {
+    display: table-cell;
+  }
+  &-icon {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 30px;
+    // border: 4px solid #afeeee;
+    // border-radius: 50%;
+    font-size: 10rem;
+    line-height: 142px;
+  }
+  .icon1 {
+    color: #008080;
+  }
+  .icon2 {
+    color: #4169e1;
+  }
+  .icon3 {
+    color: #ffd700;
+  }
+  &-title {
+    margin: 0 20px 20px;
+    font-size: 2rem;
+  }
+  &-text {
+    margin: 0 20px;
+    line-height: 2;
+  }
+}
+/* --------------------------------
+ * contact
+ * -------------------------------- */
+.contact {
+  padding: 70px 0 180px;
+  &-form {
+    width: 50%;
+    margin: 50px auto 0;
+  }
+}
+.contact-form input[type=text],
+.contact-form textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 15px;
+  outline: none;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 0;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+.contact-form input[type=text]:focus,
+.contact-form textarea:focus {
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.5) inset;
+}
+.contact-form textarea {
+  height: 150px;
+}
+.contact-form input[type=submit] {
+  display: block;
+  width: 200px;
+  margin: 40px auto 0;
+  padding: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 5px;
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+}
+.contact-form input[type=submit]:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+/* --------------------------------
+ * footer
+ * -------------------------------- */
+.footer {
+  background-color: #000;
+  color: #fff;
+  // padding: 20px 80px;
+  padding: 20px 0;
 
-/* -------------------------------------------
-// base
-// -------------------------------------------*/
+  p {
+    text-align: center;
+    @include mq() {
+      font-size: 0.9em;
+    }
+  }
+}
+/* --------------------------------
+ * smart phone
+ * -------------------------------- */
+@media (max-width: 1024px) {
+  body {
+    background-image: none;
+  }
+}
+@media (max-width: 768px) {
+  body {
+    font-size: 1.3rem;
+  }
+  .heading {
+    margin-top: 20px;
+    font-size: 2.5rem;
+  }
+  .button:hover {
+    opacity: 1;
+  }
 
-/* -------------------------------------------
-// base
-// -------------------------------------------*/
+  /* --- header --- */
+  .header {
+    padding-top: 60px;
+  }
+  .site-title-sub {
+    font-size: 1.7rem;
+  }
+  .site-title-sub::before,
+  .site-title-sub::after {
+    display: block;
+    width: 80%;
+    margin: 10px auto;
+  }
+  .site-title {
+    margin-top: 35px;
+    font-size: 5rem;
+  }
 
-/* -------------------------------------------
-// base
-// -------------------------------------------*/
+  /* --- about --- */
+  .about-text {
+    line-height: 1.8;
+  }
 
-/* -------------------------------------------
-// base
-// -------------------------------------------*/
+  /* --- works --- */
+  // .work-wrapper,
+  // .work-box {
+  //   display: block;
+  // }
+  // .work-image {
+  //   display: none;
+  // }
+  // .work-description {
+  //   position: relative;
+  // }
+  // .work-box::after {
+  //   top: 0;
+  //   height: 100%;
+  //   background-size: cover;
+  //   transform: none;
+  // }
+
+  /* --- skills --- */
+  .skill-wrapper,
+  .skill-box {
+    display: block;
+  }
+  .skill-box {
+    margin: 40px auto;
+  }
+  .skill-icon {
+    width: 100px;
+    height: 100px;
+    font-size: 7rem;
+    line-height: 92px;
+  }
+  .skill-text {
+    margin: 0;
+  }
+
+  /* --- contact --- */
+  .contact {
+    padding-bottom: 80px;
+  }
+  .contact-form {
+    width: 80%;
+  }
+}
